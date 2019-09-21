@@ -22,6 +22,18 @@ def fund_list_str2fmt_data(raw_str):
     return fmt_data
 
 
+def fund_list2dict_list(fund_list):
+    dict_list = []
+    for fund in fund_list:
+        dict_list.append({
+            "code": fund[0],
+            "name_short": fund[1],
+            "name": fund[2],
+            "type": fund[3],
+        })
+    return dict_list
+
+
 def fund_list2data_frame(fund_list):
     """
     :param fund_list: [
@@ -44,22 +56,31 @@ def fund_list2data_frame(fund_list):
     return df
 
 
-def get_fund_df():
-    """
-    获取基金表单
-    :return: dataFrame
-    """
+def _get_fund_list():
     r = requests.get(fund_list_url)
     raw_fund_list = r.content.decode("utf-8")
     with open("./output/fund_list/raw.txt", "w") as fp:
         fp.write(raw_fund_list)
     print("get fund raw list: %s..." % raw_fund_list[:100])
     fund_list = fund_list_str2fmt_data(raw_fund_list)
-    fund_df = fund_list2data_frame(fund_list)
+    return fund_list
+
+
+def get_fund_df():
+    """
+    获取基金表单
+    :return: dataFrame
+    """
+    fund_df = fund_list2data_frame(_get_fund_list())
     fund_df.to_csv("./output/fund_list/fund_list.csv")
     print("parse raw data to data frame success, df head:")
     print(fund_df.head())
     return fund_df
+
+
+def get_fund_list():
+    dict_list = fund_list2dict_list(_get_fund_list())
+    return dict_list
 
 
 if __name__ == '__main__':

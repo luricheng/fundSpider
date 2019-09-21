@@ -19,6 +19,14 @@ class FuncInfo(object):
         self.code = code,
         self.name = name
         self.fund_type = fund_type
+        self.clear_data()
+
+    def clear_data(self):
+        self._unit_value_ls = []
+        self._cumulative_value_ls = []
+        self._daily_growth_rate_ls = []
+        self._date_ls = []
+        self._date2idx_map = {}
 
     @staticmethod
     def _parse_date(date, fmt):
@@ -83,9 +91,8 @@ class FuncInfo(object):
                         self._daily_growth_rate_ls.append(dict_data.get("日增长率"))
                         update_flag = True
 
-    def get_data_frame(self, reverse=True):
-        date_list = copy.copy(self._date_ls)
-        date_list.sort(reverse=reverse)
+    def get_data_frame(self):
+        date_list = self._date_ls
         df = pd.DataFrame({
             "净值日期": date_list,
             "单位净值": [self.get_unit_value(date) for date in date_list],
@@ -100,7 +107,7 @@ if __name__ == '__main__':
     j.load_net_value_info(datetime(2018, 9, 1), datetime(2019, 9, 20))
     date = "2019-09-20"
     print(j.get_unit_value(date), j.get_cumulative_value(date), j.get_daily_growth_rate(date))
-    df = j.get_data_frame(reverse=True)
+    df = j.get_data_frame()
     df.to_csv("./output/fund_info/161725招商中证白酒指数分级.csv")
 
 
