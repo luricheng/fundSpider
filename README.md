@@ -6,7 +6,10 @@
 
 ```python
 import fund_list
+# datafram
 fund_list.get_fund_df()
+# list
+fund_list.get_fund_list()
 ```
 
 ## 获取基金指定日期内单位净值、累计净值、日增长率等
@@ -25,9 +28,9 @@ info.get_daily_growth_rate(date)
 ```
 
 ## 爬取所有基金以及相应单位净值、累计净值、日增长率等
-FundInfo持久化在output/pkl_data目录下
+数据以csv格式保存在output/csv_data目录下
 
-默认2000-01-01~2019-09-20
+默认2000-01-01~2019-09-20, 大概耗时1h
 ```shell
 python main.py
 ```
