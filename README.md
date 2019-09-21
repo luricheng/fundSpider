@@ -6,7 +6,7 @@
 
 ```python
 import fund_list
-# datafram
+# dataframe
 fund_list.get_fund_df()
 # list
 fund_list.get_fund_list()
@@ -21,10 +21,13 @@ info = fund_info.FuncInfo(code=161725)
 # 爬取9.1~9.20的涨跌信息
 info.load_net_value_info(datetime(2018, 9, 1), datetime(2019, 9, 20))
 # 9.20的单位净值、累计净值、日增长率
+# 必须先调用load_net_value_info
 date = "2019-09-20"
 info.get_unit_value(date)
 info.get_cumulative_value(date)
 info.get_daily_growth_rate(date)
+# dataframe
+df = info.get_data_frame()
 ```
 
 ## 爬取所有基金以及相应单位净值、累计净值、日增长率等
