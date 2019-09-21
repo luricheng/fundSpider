@@ -13,8 +13,8 @@ fund_list.get_fund_df()
 ```python
 import fund_info
 from datetime import datetime
-
-info = fund_info.FuncInfo(code=161725, name="招商中证白酒指数分级")
+# 招商中证白酒指数分级
+info = fund_info.FuncInfo(code=161725)
 # 爬取9.1~9.20的涨跌信息
 info.load_net_value_info(datetime(2018, 9, 1), datetime(2019, 9, 20))
 # 9.20的单位净值、累计净值、日增长率
@@ -26,6 +26,7 @@ info.get_daily_growth_rate(date)
 
 ## 爬取所有基金以及相应单位净值、累计净值、日增长率等
 FundInfo持久化在output/pkl_data目录下
+
 默认2000-01-01~2019-09-20
 ```shell
 python main.py
