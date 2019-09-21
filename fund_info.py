@@ -6,20 +6,15 @@ import pandas as pd
 
 
 class FuncInfo(object):
-    code = None                     # 基金代码
-    name = None                     # 基金名
-    fund_type = None                # 类型
-    _unit_value_ls = []             # 单位净值list
-    _cumulative_value_ls = []       # 累计净值list
-    _daily_growth_rate_ls = []      # 日增长率
-    _date_ls = []                   # 交易日list
-    _date2idx_map = {}              # 交易日 -> 单位净值list/累计净值list.. idx
-
     def __init__(self, code, name=None, fund_type=None):
-        self.code = code,
-        self.name = name
-        self.fund_type = fund_type
-        self.clear_data()
+        self.code = code,                           # 基金代码
+        self.name = name                            # 基金名
+        self.fund_type = fund_type                  # 类型
+        self._unit_value_ls = []                    # 单位净值list
+        self._cumulative_value_ls = []              # 累计净值list
+        self._daily_growth_rate_ls = []             # 日增长率
+        self._date_ls = []                          # 交易日list
+        self._date2idx_map = {}                     # 交易日 -> 单位净值list/累计净值list.. idx
 
     def clear_data(self):
         self._unit_value_ls = []
