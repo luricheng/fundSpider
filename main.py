@@ -10,6 +10,8 @@ def get_fund(fund):
     code = fund.get("code")
     # name = fund.get("name")
     file_name = os.path.join(csv_data_dir, u"%s.csv" % code)
+    if not os.path.exists(csv_data_dir):
+        os.mkdir(csv_data_dir)
     if os.path.isfile(file_name):
         return
     info = FuncInfo(code=code)
@@ -19,9 +21,8 @@ def get_fund(fund):
 
 
 if __name__ == '__main__':
-    start_date, end_date = "2000-01-01", "2019-09-21"
+    start_date, end_date = "2000-01-01", "2020-01-09"
     fund_list = get_fund_list()
     fund_num = len(fund_list)
     print("total fund: %s" % fund_num)
     p_umap(get_fund, fund_list)
-
