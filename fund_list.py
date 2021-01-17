@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import requests
 import json
 import pandas as pd
@@ -59,7 +61,7 @@ def fund_list2data_frame(fund_list):
 def _get_fund_list():
     r = requests.get(fund_list_url)
     raw_fund_list = r.content.decode("utf-8")
-    with open("./output/fund_list/raw.txt", "w") as fp:
+    with open("./output/fund_list/raw.txt", "w", encoding='utf-8') as fp:
         fp.write(raw_fund_list)
     print("get fund raw list: %s..." % raw_fund_list[:100])
     fund_list = fund_list_str2fmt_data(raw_fund_list)

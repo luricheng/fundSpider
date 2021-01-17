@@ -1,10 +1,15 @@
+# -*- coding: utf-8 -*-
+
 from fund_list import get_fund_list
 from fund_info import FuncInfo
 # from tqdm import tqdm
 import os
 from p_tqdm import p_umap
+import time
 
 csv_data_dir = "./output/csv_data"
+start_date, end_date = "2015-01-01", time.strftime("%Y-%m-%d", time.localtime())
+
 
 def get_fund(fund):
     code = fund.get("code")
@@ -21,7 +26,7 @@ def get_fund(fund):
 
 
 if __name__ == '__main__':
-    start_date, end_date = "2000-01-01", "2020-01-09"
+    # 抓取全量基金 start_date~end_date净值数据
     fund_list = get_fund_list()
     fund_num = len(fund_list)
     print("total fund: %s" % fund_num)
