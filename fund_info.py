@@ -15,6 +15,9 @@ class FuncInfo(object):
         self._cumulative_value_ls = []              # 累计净值list
         self._daily_growth_rate_ls = []             # 日增长率
         self._date_ls = []                          # 交易日list
+        self._purchase_state_ls = []                             # 申购状态
+        self._redemption_state_ls = []                             # 赎回状态
+        self._bonus_distribution_ls = []                             # 分红送配
         self._date2idx_map = {}                     # 交易日 -> 单位净值list/累计净值list.. idx
 
     def clear_data(self):
@@ -43,6 +46,18 @@ class FuncInfo(object):
     def get_cumulative_value(self, date):
         idx = self._date2idx(date)
         return None if idx is None else self._cumulative_value_ls[idx]
+    
+    def get_purchase_state(self, date):
+        idx = self._date2idx(date)
+        return None if idx is None else self._purchase_state_ls[idx]
+    
+    def get_redemption_state(self, date):
+        idx = self._date2idx(date)
+        return None if idx is None else self._redemption_state_ls[idx]
+    
+    def get_bonus_distribution(self, date):
+        idx = self._date2idx(date)
+        return None if idx is None else self._bonus_distribution_ls[idx]
 
     def get_daily_growth_rate(self, date):
         idx = self._date2idx(date)
@@ -84,7 +99,10 @@ class FuncInfo(object):
                         self._unit_value_ls.append(dict_data.get("单位净值"))
                         self._cumulative_value_ls.append(dict_data.get("累计净值"))
                         self._date_ls.append(date)
-                        self._daily_growth_rate_ls.append(dict_data.get("日增长率"))
+                        self._purchase_state_ls.append(dict_data.get("申购状态"))
+                        self._redemption_state_ls.append(dict_data.get("赎回状态"))
+                        self._bonus_distribution_ls.append(dict_data.get("分红送配"))
+                        self._daily_growth_rate_ls.append(dict_data.get("日增长率"))  
                         update_flag = True
 
     def get_data_frame(self):
@@ -94,6 +112,9 @@ class FuncInfo(object):
             "单位净值": [self.get_unit_value(date) for date in date_list],
             "累计净值": [self.get_cumulative_value(date) for date in date_list],
             "日增长率": [self.get_daily_growth_rate(date) for date in date_list],
+            "申购状态": [self.get_purchase_state(date) for date in date_list],
+            "赎回状态": [self.get_redemption_state(date) for date in date_list],
+            "分红送配": [self.get_bonus_distribution(date) for date in date_list],
         })
         return df
 
